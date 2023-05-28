@@ -2,7 +2,9 @@
 title: "Exercise 4"
 author: "Lefkios Paikousis"
 date: "`r Sys.Date()`"
-output: html_document
+output: 
+  html_document:
+    code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
