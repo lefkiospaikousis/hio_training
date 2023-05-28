@@ -1,0 +1,60 @@
+---
+title: "Ex3"
+author: "Lefkios Paikousis"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+
+library(tidyverse)
+library(palmerpenguins)
+```
+
+
+```{r}
+mpg |> count(class)
+```
+
+
+```{r}
+diamonds |> 
+  count(cut) |> 
+  mutate(pct = n / sum(n)) |> 
+  ggplot(aes(x = cut, y = pct))+
+  geom_col(fill = "#616e88")+
+  geom_text(aes(label = scales::percent(pct)), vjust = -0.5)+
+  scale_y_continuous(labels = scales::percent, limits = c(0,0.5))+
+  theme_light(base_size = 16)
+
+```
+
+
+# For Students ----
+
+```{r}
+mpg |> 
+  mutate(class = fct_infreq(class)) |> 
+  count(class) |> 
+  mutate(pct = n / sum(n)) |> 
+  ggplot(aes(x = fct_rev(class), y = pct))+
+  geom_col(fill = "#616e88")+
+  geom_text(aes(label = scales::percent(pct)), size = 4, hjust = -0.05)+
+  coord_flip()+
+  scale_y_continuous(labels = scales::percent, limits = c(0,0.4))+
+  theme_light(base_size = 16)+
+  labs(
+    title = "Frequency of the Class of cars ",
+    x = "",
+    y = "",
+    caption = "`mpg` package in the package {ggplot2}"
+  )
+
+```
+

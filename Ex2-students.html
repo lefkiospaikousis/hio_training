@@ -458,6 +458,50 @@ specific information.</p>
 <pre class="r"><code>library(tidyverse)
 library(gapminder)</code></pre>
 </div>
+<div id="view-the-last-6-10-20-rows-of-the-gapminderdataset." class="section level2">
+<h2>View the LAST 6/ 10/ 20 rows of the
+<code>gapminder</code>dataset.</h2>
+<p>HINT: Use the function <code>tail()</code></p>
+<pre class="r"><code>tail(gapminder, 20)</code></pre>
+<pre><code>## # A tibble: 20 x 6
+##    country  continent  year lifeExp      pop gdpPercap
+##    &lt;fct&gt;    &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1 Zambia   Africa     1972    50.1  4506497     1773.
+##  2 Zambia   Africa     1977    51.4  5216550     1589.
+##  3 Zambia   Africa     1982    51.8  6100407     1409.
+##  4 Zambia   Africa     1987    50.8  7272406     1213.
+##  5 Zambia   Africa     1992    46.1  8381163     1211.
+##  6 Zambia   Africa     1997    40.2  9417789     1071.
+##  7 Zambia   Africa     2002    39.2 10595811     1072.
+##  8 Zambia   Africa     2007    42.4 11746035     1271.
+##  9 Zimbabwe Africa     1952    48.5  3080907      407.
+## 10 Zimbabwe Africa     1957    50.5  3646340      519.
+## 11 Zimbabwe Africa     1962    52.4  4277736      527.
+## 12 Zimbabwe Africa     1967    54.0  4995432      570.
+## 13 Zimbabwe Africa     1972    55.6  5861135      799.
+## 14 Zimbabwe Africa     1977    57.7  6642107      686.
+## 15 Zimbabwe Africa     1982    60.4  7636524      789.
+## 16 Zimbabwe Africa     1987    62.4  9216418      706.
+## 17 Zimbabwe Africa     1992    60.4 10704340      693.
+## 18 Zimbabwe Africa     1997    46.8 11404948      792.
+## 19 Zimbabwe Africa     2002    40.0 11926563      672.
+## 20 Zimbabwe Africa     2007    43.5 12311143      470.</code></pre>
+</div>
+<div id="calculate-the-minimum-maximum-and-median-values-for-the-lifeexp-variable" class="section level2">
+<h2>Calculate the <code>minimum</code>, <code>maximum</code>, and
+<code>median</code> values for the ‘lifeExp’ variable</h2>
+<p>HINT: You may use the <code>summary()</code> function to get all the
+summary statistics</p>
+<pre class="r"><code>min(gapminder$lifeExp)</code></pre>
+<pre><code>## [1] 23.599</code></pre>
+<pre class="r"><code>median(gapminder$lifeExp)</code></pre>
+<pre><code>## [1] 60.7125</code></pre>
+<pre class="r"><code>max(gapminder$lifeExp)</code></pre>
+<pre><code>## [1] 82.603</code></pre>
+<pre class="r"><code>summary(gapminder$lifeExp)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   23.60   48.20   60.71   59.47   70.85   82.60</code></pre>
+</div>
 <div id="calculate-the-average-gdp-per-capita-for-the-greece-across-all-years" class="section level2">
 <h2>Calculate the average GDP per capita for the Greece across all
 years</h2>

@@ -1,0 +1,105 @@
+---
+title: "General"
+author: "Lefkios Paikousis"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Vectors 
+- are a list of values of the same time (all text, or all numbers, etc.)
+You can combine them with `c()`:
+
+- Numbers
+```{r}
+c(1,4,9,19)
+```
+
+- characters
+```{r}
+c("hello", "bye", "goodmorning")
+```
+
+- logical
+
+```{r}
+c(TRUE, TRUE, FALSE)
+```
+
+
+- Save them somewhere to use them again [assign them]
+
+```{r}
+my_lucky_numbers <- c(8, 11, 30)
+```
+
+
+```{r}
+print(my_lucky_numbers)
+
+my_lucky_numbers
+```
+
+
+- And apply arithmetic operations on them
+
+```{r}
+my_lucky_numbers * 2
+
+sqrt(my_lucky_numbers)
+```
+
+
+- Coding Basics
+```{r}
+1 / 200 * 30
+#> [1] 0.15
+(59 + 73 + 2) / 3
+#> [1] 44.66667
+sin(pi / 2)
+#> [1] 1
+```
+
+```{r}
+my_variable <- 10
+my_varıable
+#> Error in eval(expr, envir, enclos): object 'my_varıable' not found
+```
+
+
+# Built in vectors in R
+
+```{r}
+
+letters
+LETTERS
+month.abb
+month.name
+```
+
+
+# Built in datasets in R
+
+```{r}
+mtcars
+iris
+?datasets
+?mtcars
+library(help = "datasets")
+
+```
+
+
+
+
+
+
+
+
+
+
+
+

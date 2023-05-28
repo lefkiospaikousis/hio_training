@@ -1,0 +1,64 @@
+---
+title: "Reshape (pivoting the data) using {tidyr}"
+author: "Lefkios Paikousis"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(readr)
+library(readxl)
+
+```
+
+# Read a .csv file
+```{r}
+life_exp <- readr::read_csv("data/life_expectancy2.csv")
+
+```
+
+# Read .csv file from a web location
+
+- From `https://data.gov.cy/`
+
+```{r}
+
+covid_cases <- readr::read_csv("https://data.gov.cy/sites/default/files/CY%20Weekly%20Covid19%20Open%20Data_50.csv")
+
+glimpse(covid_cases)
+
+```
+
+
+# Read excel file
+
+```{r}
+readxl::read_excel("data/europe.xlsx")
+
+```
+
+
+# Save back to Excel
+
+```{r}
+writexl::write_xlsx(covid_cases, "data/covid_cases.xlsx")
+```
+
+# Save as a csv
+
+```{r}
+readr::write_csv(covid_cases, "data/covid_cases.csv")
+```
+
+# Save with another delimter (e..g `|`)
+
+```{r}
+readr::write_delim(covid_cases, "data/covid_cases2.csv", delim = "|")
+```
+
+

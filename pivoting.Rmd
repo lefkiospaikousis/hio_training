@@ -1,0 +1,96 @@
+---
+title: "Reshape (pivoting the data) using {tidyr}"
+author: "Lefkios Paikousis"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(readr)
+
+```
+
+# Read in a .csv file of life expectancy
+- Transform it in a long format
+
+```{r}
+dta <- readr::read_csv("data/life_expectancy2.csv")
+
+dta_long <- dta |> 
+  pivot_longer(-c(country, continent),
+               names_to = "year",
+               values_to = "lifeExp"
+  )
+
+glimpse(dta_long)
+
+```
+
+# Get the last 5 years of data and take it back to wide format, with years as the columns
+```{r}
+dta_long |> 
+  filter(year < "2005") |> 
+  pivot_wider(
+    names_from = year,
+    values_from = lifeExp
+  )
+```
+
+
+# The mean gdp per capita, by Year `AND` Continent, in a wide format
+
+```{r}
+dta_long |> 
+  filter(year < "2005") |> 
+  group_by(year, continent) |> 
+  summarise(lifeExp = mean(lifeExp)) |> 
+  pivot_wider(names_from = year, values_from = lifeExp) 
+
+```
+
+
+# Use it with simple counts to check the quality of the dataset
+
+- Question: DO we have the same number of countries in each continent, in each year?
+- Check only the years before 2005 (to make it easier)
+
+```{r}
+
+dta_long |> 
+  filter(year < "2005") |> 
+  group_by(year, continent) |> 
+  summarise(
+    n_countries = n_distinct(country)
+  ) |> 
+  pivot_wider(names_from = year, values_from = n_countries)
+  
+```
+
+
+
+# Add the europe sub region in the european countries
+```{r}
+europe_countries <- readxl::read_xlsx("data/europe.xlsx")
+
+glimpse(europe_countries)
+```
+
+
+```{r}
+dta_long |> 
+  filter(year == 2020) |> 
+  left_join(
+    europe_countries, 
+    by = c("country" = "Country") ) |> 
+  filter(!is.na(Subregion)) |> 
+  rename(pop_2020 = `Population(2020)`) 
+
+```
+
+
+

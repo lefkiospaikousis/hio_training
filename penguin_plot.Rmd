@@ -1,0 +1,173 @@
+---
+title: "Penguin Plot"
+author: "Lefkios Paikousis"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Plotting the association of `flipper length` and body mass`
+
+```{r message=FALSE, warning=FALSE}
+
+library(tidyverse)
+library(palmerpenguins)
+```
+
+- Check the dataset out
+```{r}
+penguins
+```
+
+- See the variables and their type
+
+```{r}
+glimpse(penguins)
+
+```
+
+- View trhe full dataset in the Viewer
+```{r}
+View(penguins)
+
+```
+
+- Information on the dataset
+```{r}
+?penguins
+```
+
+
+- Step 1. The blank canvas
+```{r}
+ggplot(data = penguins)
+```
+
+- map visual properties (aesthetics) to axis
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+)
+
+```
+
+- geom: the geometrical object that a plot uses to represent data
+```{r}
+
+
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+  geom_point()
+
+```
+
+
+- Adding aesthetics and layers
+```{r}
+
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g, color = species)
+) +
+  geom_point()
+```
+
+
+-Add a line representing the association
+
+```{r}
+
+
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g, color = species)
+) +
+  geom_point() +
+  geom_smooth()
+```
+
+- We have 3 lines, one for each species
+The aesthetic mappings are defined in ggplot(), at the global level,they’re passed down to each of the subsequent geom layers of the plot
+
+- Move the `aes(color = species)` in the `geom_smooth()`
+```{r}
+
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+  geom_point(aes(color = species)) +
+  geom_smooth(method = "lm")
+```
+
+
+- Add Titles on axis and on the chart
+```{r}
+
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) +
+  geom_point(aes(color = species, shape = species)) +
+  geom_smooth(method = "lm") +
+  labs(
+    title = "Body mass and flipper length",
+    subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+    x = "Flipper length (mm)", y = "Body mass (g)",
+    color = "Species", shape = "Species"
+  )
+```
+
+
+# Other type of plots
+
+- Bar plot. Height of the bar is the count of the observations
+
+```{r}
+
+
+ggplot(penguins, aes(x = fct_infreq(species))) +
+  geom_bar(width = 0.5)
+
+```
+
+- Histogram
+
+```{r}
+
+ggplot(penguins, aes(x = body_mass_g)) +
+
+  geom_histogram(binwidth = 200)
+```
+
+- Bar chart by Species
+```{r}
+ggplot(penguins, aes(x = island, fill = species)) +
+  geom_bar()
+```
+
+- Fill the bars with proportions
+```{r}
+ggplot(penguins, aes(x = island, fill = species)) +
+  geom_bar(position = "fill")
+```
+
+
+# Facets
+
+- By island
+
+```{r}
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species, shape = species)) +
+  facet_wrap(~island)
+```
+
+
