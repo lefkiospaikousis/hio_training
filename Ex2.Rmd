@@ -1,0 +1,59 @@
+---
+title: "Ex2"
+author: "Lefkios Paikousis"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Exercise 2:
+Objective: Perform data filtering and summarisation to extract specific information.
+
+## Load the necessary packages
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(gapminder)
+```
+
+
+## Calculate the average life expectancy for the Singapore across all years
+
+```{r}
+
+gapminder |> 
+  filter(country == 'Singapore') |> 
+  summarise(mean_gdp = mean(gdpPercap))
+
+```
+
+
+# Find the top 5 countries with the highest GDP per capita in the year 2007.
+
+```{r}
+gapminder |> 
+  filter(year == 200007)
+
+gapminder |> 
+  filter(year == 2007) |> 
+  arrange(desc(gdpPercap)) |> 
+  head(n = 5)
+
+```
+
+# Calculate the total population for each continent in the year 2007.
+
+```{r}
+gapminder |> 
+  filter(year == 2007) |> 
+  group_by(continent) |> 
+  summarise(
+    total_population = sum(pop)
+  )
+
+```
+
+

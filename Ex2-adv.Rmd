@@ -1,0 +1,66 @@
+---
+title: "Ex2-Filters Logical Operators"
+author: "Lefkios Paikousis"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Exercise:
+Objective: Perform more advanced data filtering to extract specific information.
+
+## Load the necessary packages
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(gapminder)
+```
+
+
+## Find the countries that have life expectancy less than 50 years in 2007
+
+```{r}
+
+gapminder |> 
+  filter(year == 2007, lifeExp < 50) 
+```
+
+# How many in each continent?
+
+
+```{r}
+
+gapminder |> 
+  filter(year == 2007, lifeExp < 50) |> 
+  count(continent)
+```
+
+
+# Countries where life expectancy in 2007 is higher than 70 and are not in Europe
+
+```{r}
+gapminder |> 
+  filter(year == 2007, lifeExp > 80, continent != "Europe") |> 
+  count(continent)
+
+```
+
+
+
+# Filter only the countries `Japan`, `Canada`, `Greece`
+
+```{r}
+
+my_countries <- c("Japan", "Canada", "Greece")
+
+gapminder |> 
+  filter(country %in% my_countries) |> 
+  count(country)
+
+```
+
+
+

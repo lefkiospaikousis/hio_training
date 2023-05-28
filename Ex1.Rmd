@@ -1,0 +1,73 @@
+---
+title: "Part A"
+author: "Lefkios Paikousis"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Exercise 1:
+
+Objective: Explore the dataset and gain familiarity with the structure of the data.
+
+## Load the necessary packages
+
+```{r}
+library(tidyverse)
+library(gapminder)
+```
+
+
+## View the first 6/ 10/ 20 rows of the `gapminder`dataset.
+
+```{r}
+head(gapminder, 20)
+```
+
+## View the ful table
+
+```{r}
+View(gapminder)
+```
+
+
+## Find the unique countries present in the dataset
+
+```{r}
+
+# returns a vector
+unique(gapminder$country)
+
+# returns a data/frame
+distinct(gapminder, country)
+
+gapminder |> distinct(country)
+
+gapminder |> count(country)
+
+gapminder |> count(continent)
+
+```
+
+## Is Cyprus in it?
+```{r}
+"Cyprus" %in% unique(gapminder$country)
+
+"Finland" %in% unique(gapminder$country)
+
+```
+
+## Calculate the minimum and maximum values for the 'lifeExp' variable
+
+```{r}
+min(gapminder$lifeExp)
+
+max(gapminder$lifeExp)
+```
+
+
+
+

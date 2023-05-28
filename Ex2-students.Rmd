@@ -1,0 +1,74 @@
+---
+title: "Ex2 for the students"
+author: "Lefkios Paikousis"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Exercise 2:
+Objective: Perform data filtering and summarisation to extract specific information.
+
+## Load the necessary packages
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(gapminder)
+```
+
+
+## View the LAST 6/ 10/ 20 rows of the `gapminder`dataset.
+HINT: Use the function `tail()`
+
+```{r}
+tail(gapminder, 20)
+```
+
+## Calculate the `minimum`, `maximum`, and `median` values for the 'lifeExp' variable
+HINT: You may use the `summary()` function to get all the summary statistics
+```{r}
+min(gapminder$lifeExp)
+median(gapminder$lifeExp)
+max(gapminder$lifeExp)
+
+summary(gapminder$lifeExp)
+```
+
+
+## Calculate the average GDP per capita for the Greece across all years
+
+```{r}
+
+gapminder |> 
+  filter(country == 'Greece') |> 
+  summarise(mean_gdp = mean(gdpPercap))
+
+```
+
+# Find the 5 countries with the lowest Life expectancy in the year 2002.
+
+```{r}
+gapminder |> 
+  filter(year == 2002) |> 
+  arrange(lifeExp) |> 
+  head(n = 5)
+```
+
+# Calculate the total population for Europe in every year
+
+```{r}
+gapminder |>
+  filter(continent == "Europe") |> 
+  group_by(continent, year) |> 
+  summarise(
+    total_population = sum(pop)
+  )
+
+```
+
+

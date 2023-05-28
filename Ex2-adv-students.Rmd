@@ -1,0 +1,81 @@
+---
+title: "Ex2-Filters Logical Operators"
+author: "Lefkios Paikousis"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Exercise:
+Objective: Perform more advanced data filtering to extract specific information.
+
+
+## Load the necessary packages
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(gapminder)
+```
+
+
+## Find the countries that have life expectancy greater or equal to 80 years in 2007
+
+```{r}
+
+gapminder |> 
+  filter(year == 2007, lifeExp >=80) 
+```
+
+# How many in each continent?
+
+```{r}
+
+gapminder |> 
+  filter(year == 2007, lifeExp >=80) |> 
+  count(continent)
+```
+
+
+# Countries in Europw, where the gdp per capita in 2007 is lower than that of Europe's average gdp per capita in 2007
+HINT: first find the mean gdp per capita of Europe in 2007, and use that to filter the dataset    
+
+
+```{r}
+gapminder |> 
+  filter(year == 2007, continent == "Europe") |>
+  group_by(continent) |> 
+  summarise(avg_gdp = mean(gdpPercap))
+
+gapminder |> 
+  filter(year == 2007, continent == "Europe", gdpPercap < 25054)
+
+```
+
+
+# Exlude the countries `Japan`, `Canada`, `Greece` from the dataset
+HINT: Search google with the term `dplyr not in` ans see the first couple of results     
+
+
+```{r}
+
+my_countries <- c("Japan", "Canada", "Greece")
+
+gapminder |> 
+  filter( !country %in% my_countries)
+
+```
+
+
+## Find the country with the highest life expectancy in the year 2007.
+
+HINT: You will use the `max()` function inside the `filter()`
+```{r}
+gapminder |> 
+  filter( year == 2007, lifeExp == max(lifeExp) )
+
+```
+
+

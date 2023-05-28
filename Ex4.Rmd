@@ -1,0 +1,77 @@
+---
+title: "Exercise 4"
+author: "Lefkios Paikousis"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Exercise 4:
+Objective: Perform data manipulation using dplyr to answer specific questions.
+
+## Load the necessary packages
+
+```{r}
+library(tidyverse)
+library(gapminder)
+```
+
+
+## For each continent, for the year 2007 calculate:
+
+- the average life expectnacy 
+- the average gdp Per Capita, 
+- total population in millions
+- number of countries in each continent
+
+
+```{r}
+gapminder |> 
+  filter(year == 2007) |> 
+  group_by(continent) |> 
+  summarise(
+    countries = n(),
+    countries2 = n_distinct(country),
+    avg_gdpPercap = mean(gdpPercap),
+    avg_lifeExp = mean(lifeExp),
+    total_population_millions = sum(pop) / 1e6
+  )
+
+```
+
+## Create 2 new variables
+ - 'population_millions' that represents the population in millions.
+ - the actual `gdp` in the country. This is the `gdpPercap` multiplied with `population`
+
+```{r}
+gapminder |> 
+  mutate(
+    pop_millions = pop / 1000000,
+    gdp = gdpPercap * pop
+  )
+```
+
+## Get the average gdp in billions, per continent in year 2002
+
+```{r}
+gapminder |> 
+  filter(year == 2002) |> 
+  mutate(
+    #pop_millions = pop / 1000000,
+    gdp = gdpPercap * pop
+  ) |> 
+  group_by(continent) |> 
+  summarise(
+    avg_gdp = mean(gdp) / 1000000000
+  ) 
+```
+
+
+
+
+
+
+
